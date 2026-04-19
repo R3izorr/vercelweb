@@ -1,169 +1,71 @@
-# r3izorr-portfolio
+# R3izorr Portfolio
 
-Static portfolio + CTF writeup site for [@R3izorr](https://github.com/R3izorr).
-Built with **Astro 5**, **TypeScript**, **Tailwind CSS v4**, and MD/MDX content
-collections. Output is fully static and deploys anywhere (Vercel, Cloudflare
-Pages, Netlify, GitHub Pages).
+Personal portfolio and CTF writeup archive for
+[R3izorr](https://github.com/R3izorr).
 
-## Quick start
+I'm Chris / Chien Nguyen, a Computer Science student at NTU Singapore and an
+aspiring cybersecurity engineer focused on reverse engineering, binary
+exploitation, and CTFs.
 
-```bash
-# requires Node >= 20
-nvm use 20
-npm install
-npm run dev       # http://localhost:4321
-npm run build     # astro check && astro build → ./dist
-npm run preview
-```
+## What This Site Is
 
-## Site structure
+This site is a compact place to review my work:
 
-```
-/                                     home
-/projects                             list
-/projects/[slug]                      project detail (MDX body)
-/writeups                             all writeups + categories index
-/writeups/[year]                      year overview
-/writeups/[year]/[event]              event overview
-/writeups/[year]/[event]/[category]   category list
-/writeups/[year]/[event]/[category]/[slug]   writeup detail
-/writeups/categories                  category index
-/writeups/categories/[category]       writeups in a category
-/writeups/tags                        tag index
-/writeups/tags/[tag]                  writeups with a tag
-```
+- who I am and what I am learning
+- selected software and security projects
+- GitHub repositories worth checking
+- CTF writeups organized by event, category, and tags
+- links to contact me or view my profiles
 
-Plus `/sitemap-index.xml`, `/robots.txt`, and a themed `/404`.
+## Sections
 
-## Content authoring
+### Home
 
-### Writeups — `src/content/writeups/{year}/{event-slug}/{category}/{slug}.md`
+Quick overview of my background, current focus, featured work, skills, and
+links.
 
-Categories are normalized to `pwn | rev | web | crypto | forensics | osint | misc`.
+### Projects
 
-```md
----
-title: "challenge-name"
-description: "one-sentence hook"
-event: "ImaginaryCTF 2025"
-year: 2025
-category: pwn
-tags: ["heap", "tcache"]
-difficulty: medium              # easy | medium | hard | insane
-date: "2025-07-05"
-sourceRepo: "R3izorr/CTF_writeup"
-sourcePath: "ImaginaryCTF_2025/Pwn/challenge"
-featured: false
-flagsHidden: false
----
-```
+Selected projects from my GitHub profile, including:
 
-Use `.md` for code-heavy writeups (braces/angle brackets in code blocks don't
-need escaping). Reach for `.mdx` only when you need to embed components.
+- `CTF_writeup` — my public CTF writeup collection
+- `sc2006-proj` — Hawker Opportunity Score Platform
+- `Checksum-.text-in-androidNDK` — Android NDK ELF `.text` integrity checker
+- `home-net-drift-monitor` — Python home network drift monitor
+- `SC2002-GRP5` — Java BTO management system
+- `blog` — personal blog experiment
 
-To import from the nested `R3izorr/CTF_writeup` repo layout, clone it and run:
+Each project page gives a short technical review: purpose, stack, links, and
+notes.
 
-```bash
-git clone https://github.com/R3izorr/CTF_writeup /tmp/r3izorr-CTF_writeup
-npm run import:writeups
-```
+### CTF Writeups
 
-The importer scans every nested `README.md` / `READEME.md`, infers year,
-event, category, slug, and tags, then writes normalized Astro content files.
-It skips source paths already present in frontmatter, so reruns are safe. Only
-Markdown is copied; challenge binaries, Docker files, solve scripts, `libc`,
-`ld`, and flag files remain in the source repo and are linked through
-`sourcePath`.
+Writeups are grouped by:
 
-Custom source/output paths are supported:
+- year
+- CTF event
+- category: `pwn`, `rev`, `web`, `crypto`, `forensics`, `osint`, `misc`
+- tags
 
-```bash
-npm run import:writeups -- /path/to/CTF_writeup /path/to/output/writeups
-```
+Most writeups focus on pwn and reverse engineering, with notes on exploit
+strategy, reversing process, bugs, payloads, and takeaways.
 
-### Projects — `src/content/projects/{slug}.mdx` + `src/data/projects.json`
+## Current Focus
 
-Projects live in two places:
+- Reverse engineering
+- Binary exploitation
+- Linux/glibc internals
+- Android native security
+- Web-to-pwn challenge chains
+- Full-stack projects with TypeScript and Python
 
-- `src/data/projects.json` — list-page metadata (title, summary, stack, links,
-  category, featured, order). This is merged with live GitHub signals.
-- `src/content/projects/{slug}.mdx` — long-form body rendered on the detail
-  page. Frontmatter must include at least `title`, `summary`, `category`, and
-  `slug`.
+## Links
 
-The two share `slug` as the join key.
+- GitHub: <https://github.com/R3izorr>
+- LinkedIn: <https://www.linkedin.com/in/tr%E1%BA%A7n-chi%E1%BA%BFn-nguy%E1%BB%85n-951534252/>
 
-## GitHub data snapshot
+## Note
 
-The site ships with a static snapshot of the profile's public repos so builds
-don't hit the API. Refresh it whenever you want updated stars / pushed-at
-timestamps / descriptions:
-
-```bash
-# optional: set a PAT to raise the rate limit
-export GITHUB_TOKEN=ghp_xxx
-npm run fetch:github
-```
-
-This writes:
-
-- `src/data/github-profile.json`
-- `src/data/github-repos.json`
-
-The script is defensive — on failure it keeps the previous snapshot intact.
-
-Edit `src/lib/github.ts`'s `visibleRepos()` to adjust which repos appear on the
-home page (currently filters out forks, archives, tiny repos, and a few
-personal experiments).
-
-## Theming & styling
-
-- Tailwind v4 via `@tailwindcss/vite` with an `@custom-variant dark` driven by
-  the `data-theme="dark"` attribute on `<html>`.
-- Theme preference is stored in `localStorage` under `r3-theme` and applied
-  pre-paint by `ThemeProvider.astro` to avoid FOUC.
-- Palette is a custom **Ink / Paper** neutral scale with a single accent —
-  defined in `src/styles/global.css` alongside utility classes
-  (`.card`, `.chip`, `.btn`, `.btn-ghost`, `.prose-site`, `.link-underline`).
-
-## SEO
-
-`src/components/SeoHead.astro` emits:
-
-- OpenGraph + Twitter card metadata with a default SVG OG image
-  (`public/og-default.svg`)
-- `application/ld+json` — `WebSite` on normal pages, `TechArticle` on writeups
-- Canonical URL, icons, theme-color
-- Sitemap link (generated by `@astrojs/sitemap`)
-
-Change the deployed site URL in `astro.config.mjs` (`site:`).
-
-## Code blocks
-
-Shiki is configured with a dual theme (`github-light` / `github-dark-dimmed`)
-that swaps based on `data-theme`. Autolinked headings (h2–h5) are powered by
-`rehype-autolink-headings`.
-
-## Deployment
-
-Output is fully static (`output: 'static'`):
-
-- **Vercel / Netlify / Cloudflare Pages** — build command `npm run build`,
-  output directory `dist`, Node 20.
-- **GitHub Pages** — push `dist` to `gh-pages`. Set `site` and `base` in
-  `astro.config.mjs` if serving from a subpath.
-
-## Useful scripts
-
-| Command              | What it does                                     |
-| -------------------- | ------------------------------------------------ |
-| `npm run dev`        | Astro dev server                                 |
-| `npm run build`      | `astro check && astro build` → static `dist/`    |
-| `npm run preview`    | Serve the built site locally                     |
-| `npm run fetch:github` | Refresh the public GitHub snapshot             |
-| `npm run import:writeups` | Import nested `CTF_writeup` Markdown files |
-
-## Credits
-
-Structural reference: [ZTzTopia/site](https://github.com/ZTzTopia/site).
-Content and styling are original to this project.
+Some writeups may include challenge-specific flags, exploit snippets, or
+security research details from public CTF challenges. They are kept for
+learning, review, and portfolio purposes.
