@@ -61,6 +61,26 @@ flagsHidden: false
 Use `.md` for code-heavy writeups (braces/angle brackets in code blocks don't
 need escaping). Reach for `.mdx` only when you need to embed components.
 
+To import from the nested `R3izorr/CTF_writeup` repo layout, clone it and run:
+
+```bash
+git clone https://github.com/R3izorr/CTF_writeup /tmp/r3izorr-CTF_writeup
+npm run import:writeups
+```
+
+The importer scans every nested `README.md` / `READEME.md`, infers year,
+event, category, slug, and tags, then writes normalized Astro content files.
+It skips source paths already present in frontmatter, so reruns are safe. Only
+Markdown is copied; challenge binaries, Docker files, solve scripts, `libc`,
+`ld`, and flag files remain in the source repo and are linked through
+`sourcePath`.
+
+Custom source/output paths are supported:
+
+```bash
+npm run import:writeups -- /path/to/CTF_writeup /path/to/output/writeups
+```
+
 ### Projects — `src/content/projects/{slug}.mdx` + `src/data/projects.json`
 
 Projects live in two places:
@@ -141,6 +161,7 @@ Output is fully static (`output: 'static'`):
 | `npm run build`      | `astro check && astro build` → static `dist/`    |
 | `npm run preview`    | Serve the built site locally                     |
 | `npm run fetch:github` | Refresh the public GitHub snapshot             |
+| `npm run import:writeups` | Import nested `CTF_writeup` Markdown files |
 
 ## Credits
 
