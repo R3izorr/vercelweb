@@ -1,0 +1,100 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import SkillsGrid from '../components/SkillsGrid.astro';
+import WriteupCard from '../components/WriteupCard.astro';
+import ContactLinks from '../components/ContactLinks.astro';
+import Chip from '../components/Core/Chip.astro';
+import { Icon } from 'astro-icon/components';
+import profile from '../data/github-profile.json';
+import { getWriteups } from '../lib/writeups';
+
+const recentWriteups = (await getWriteups()).slice(0, 6);
+---
+
+<PageLayout
+  title="R3izorr — Chien Nguyen"
+  description="Computer Science student at NTU Singapore. Reverse engineering, CTFs, and security engineering."
+  type="website"
+>
+  <section class="py-6 sm:py-10">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-start gap-4">
+        <img
+          src={profile.avatarUrl}
+          alt={profile.name}
+          width="64"
+          height="64"
+          class="w-16 h-16 rounded-full border border-[color:var(--color-border)]"
+          loading="eager"
+        />
+        <div class="flex-1 min-w-0">
+          <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+            {profile.name}
+          </h1>
+          <div class="text-sm text-[color:var(--color-tx-2)] mt-0.5">
+            <span class="font-mono">@{profile.login}</span>
+            <span class="mx-1.5 text-[color:var(--color-tx-3)]">·</span>
+            <span>aspiring security engineer</span>
+          </div>
+          <div class="flex flex-wrap gap-1.5 mt-3">
+            <Chip tone="accent">
+              <Icon name="lucide:graduation-cap" class="w-3 h-3" /> NTU Singapore · CS
+            </Chip>
+            <Chip tone="rose">
+              <Icon name="lucide:skull" class="w-3 h-3" /> pwn
+            </Chip>
+            <Chip tone="violet">
+              <Icon name="lucide:eye" class="w-3 h-3" /> reverse engineering
+            </Chip>
+            <Chip tone="sky">
+              <Icon name="lucide:flag" class="w-3 h-3" /> CTF player
+            </Chip>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[color:var(--color-tx-2)] leading-relaxed max-w-2xl">
+        I break things to understand them. Currently studying computer science
+        and playing CTFs in my free time — reverse engineering and binary
+        exploitation are my favourite categories, but I'll take any challenge
+        that teaches me something about how systems actually work underneath.
+      </p>
+
+      <ContactLinks />
+    </div>
+  </section>
+
+  <section class="py-6 border-t border-[color:var(--color-border)]">
+    <div class="flex items-end justify-between mb-4">
+      <h2 class="text-lg font-semibold tracking-tight">Featured projects</h2>
+      <a
+        href="/projects"
+        class="text-xs text-[color:var(--color-tx-2)] link-underline inline-flex items-center gap-1"
+      >
+        all projects <Icon name="lucide:arrow-right" class="w-3 h-3" />
+      </a>
+    </div>
+    <FeaturedProjects />
+  </section>
+
+  <section class="py-6 border-t border-[color:var(--color-border)]">
+    <h2 class="text-lg font-semibold tracking-tight mb-4">Stack & skills</h2>
+    <SkillsGrid />
+  </section>
+
+  <section class="py-6 border-t border-[color:var(--color-border)]">
+    <div class="flex items-end justify-between mb-4">
+      <h2 class="text-lg font-semibold tracking-tight">Recent writeups</h2>
+      <a
+        href="/writeups"
+        class="text-xs text-[color:var(--color-tx-2)] link-underline inline-flex items-center gap-1"
+      >
+        all writeups <Icon name="lucide:arrow-right" class="w-3 h-3" />
+      </a>
+    </div>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {recentWriteups.map((e) => <WriteupCard entry={e} />)}
+    </div>
+  </section>
+</PageLayout>

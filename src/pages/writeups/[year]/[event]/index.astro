@@ -1,0 +1,71 @@
+---
+import PageLayout from '../../../../layouts/PageLayout.astro';
+import WriteupCard from '../../../../components/WriteupCard.astro';
+import { Icon } from 'astro-icon/components';
+import {
+  getWriteups,
+  writeupSlugParts,
+  CATEGORY_LABELS,
+  CATEGORY_ICONS,
+} from '../../../../lib/writeups';
+
+export async function getStaticPaths() {
+  const entries = await getWriteups();
+  const map = new Map<string, { year: string; event: string; eventName: string }>();
+  for (const e of entries) {
+    const { year, event } = writeupSlugParts(e);
+    const key = `${year}/${event}`;
+    if (!map.has(key)) map.set(key, { year, event, eventName: e.data.event });
+  }
+  return [...map.values()].map((v) => ({
+    params: { year: v.year, event: v.event },
+    props: { eventName: v.eventName },
+  }));
+}
+
+const { year, event } = Astro.params;
+const { eventName } = Astro.props as { eventName: string };
+const all = await getWriteups();
+const entries = all.filter((e) => {
+  const p = writeupSlugParts(e);
+  return p.year === year && p.event === event;
+});
+
+const cats = new Map<string, number>();
+entries.forEach((e) => {
+  cats.set(e.data.category, (cats.get(e.data.category) ?? 0) + 1);
+});
+---
+
+<PageLayout
+  title={`${eventName} · ${year} — R3izorr`}
+  description={`Writeups from ${eventName} (${year})`}
+  breadcrumbs={[
+    { label: 'Writeups', href: '/writeups' },
+    { label: String(year), href: `/writeups/${year}` },
+    { label: eventName, href: `/writeups/${year}/${event}` },
+  ]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight">{eventName}</h1>
+    <div class="text-sm text-[color:var(--color-tx-2)] mt-1 font-mono">{year}</div>
+  </header>
+
+  <section class="mb-6">
+    <div class="flex flex-wrap gap-2">
+      {[...cats.entries()].map(([c, n]) => (
+        <a href={`/writeups/${year}/${event}/${c}`} class="btn btn-ghost">
+          <Icon name={CATEGORY_ICONS[c] ?? 'lucide:tag'} class="w-3.5 h-3.5" />
+          {CATEGORY_LABELS[c] ?? c}
+          <span class="text-[color:var(--color-tx-3)]">· {n}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {entries.map((e) => <WriteupCard entry={e} showEvent={false} />)}
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,112 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Prose from '../../components/Core/Prose.astro';
+import Chip from '../../components/Core/Chip.astro';
+import { Icon } from 'astro-icon/components';
+import { getProjects, type EnrichedProject } from '../../lib/projects';
+import { formatMonthYear, langColor } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const projects = getProjects();
+  const entries = await getCollection('projects');
+  return projects.map((p) => {
+    const entry = entries.find((e) => e.data.slug === p.slug);
+    return { params: { slug: p.slug }, props: { project: p, entry } };
+  });
+}
+
+const { slug } = Astro.params;
+const { project: p, entry } = Astro.props as {
+  project: EnrichedProject;
+  entry?: CollectionEntry<'projects'>;
+};
+
+const rendered = entry ? await render(entry) : null;
+const Content = rendered?.Content;
+---
+
+<BaseLayout
+  title={`${p.title} — R3izorr`}
+  description={p.summary}
+  type="article"
+  breadcrumbs={[
+    { label: 'Projects', href: '/projects' },
+    { label: p.title, href: `/projects/${slug}` },
+  ]}
+>
+  <div class="mx-auto max-w-screen-lg px-4 py-8">
+    <header class="mb-6">
+      <div class="flex items-start justify-between gap-4 flex-wrap">
+        <div class="min-w-0">
+          <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+            {p.title}
+          </h1>
+          <div class="text-sm text-[color:var(--color-tx-3)] font-mono mt-1">
+            {p.repo}
+          </div>
+        </div>
+        <div class="flex gap-2">
+          {p.links.github && (
+            <a href={p.links.github} target="_blank" rel="noopener noreferrer" class="btn">
+              <Icon name="simple-icons:github" class="w-4 h-4" /> repo
+            </a>
+          )}
+          {p.links.demo && (
+            <a href={p.links.demo} target="_blank" rel="noopener noreferrer" class="btn">
+              <Icon name="lucide:external-link" class="w-4 h-4" /> demo
+            </a>
+          )}
+          {p.links.docs && (
+            <a href={p.links.docs} class="btn">
+              <Icon name="lucide:book-open" class="w-4 h-4" /> docs
+            </a>
+          )}
+        </div>
+      </div>
+
+      <p class="text-[color:var(--color-tx-2)] leading-relaxed mt-4 max-w-2xl">
+        {p.summary}
+      </p>
+
+      <div class="flex flex-wrap gap-1.5 mt-4">
+        {p.stack.map((s) => <Chip tone="accent">{s}</Chip>)}
+        {p.tags.map((t) => <Chip>#{t}</Chip>)}
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 mt-4 text-[11px] text-[color:var(--color-tx-3)]">
+        {p.primaryLanguage && (
+          <span class="flex items-center gap-1">
+            <span
+              class="inline-block w-2 h-2 rounded-full"
+              style={`background:${langColor(p.primaryLanguage)}`}
+            />
+            {p.primaryLanguage}
+          </span>
+        )}
+        {typeof p.stars === 'number' && p.stars > 0 && (
+          <span class="flex items-center gap-1">
+            <Icon name="lucide:star" class="w-3 h-3" /> {p.stars}
+          </span>
+        )}
+        {typeof p.forks === 'number' && p.forks > 0 && (
+          <span class="flex items-center gap-1">
+            <Icon name="lucide:git-fork" class="w-3 h-3" /> {p.forks}
+          </span>
+        )}
+        {p.pushedAt && (
+          <span class="font-mono">updated {formatMonthYear(p.pushedAt)}</span>
+        )}
+        {p.status && <Chip>{p.status}</Chip>}
+      </div>
+    </header>
+
+    {Content && (
+      <div class="border-t border-[color:var(--color-border)] pt-6">
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
+    )}
+  </div>
+</BaseLayout>

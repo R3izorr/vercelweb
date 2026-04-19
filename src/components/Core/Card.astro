@@ -1,0 +1,34 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'div'> &
+  HTMLAttributes<'a'> & {
+    padded?: boolean;
+    hover?: boolean;
+  };
+
+const {
+  class: classList,
+  padded = true,
+  hover = true,
+  ...rest
+} = Astro.props as Props;
+
+const isLink = 'href' in rest && !!rest.href;
+const Tag = isLink ? 'a' : 'div';
+const remoteLink = typeof rest.href === 'string' && /^https?:/.test(rest.href);
+---
+
+<Tag
+  class={twMerge(
+    'card block',
+    padded ? 'p-4' : '',
+    hover ? 'transition-colors hover:border-[color:var(--color-border-2)] hover:bg-[color:var(--color-bg-3)]' : '',
+    classList as string | undefined,
+  )}
+  {...(remoteLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  {...rest}
+>
+  <slot />
+</Tag>

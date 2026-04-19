@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "ctf-writeup",
+    "repo": "R3izorr/CTF_writeup",
+    "title": "CTF Writeups",
+    "summary": "A growing collection of reverse engineering and binary exploitation writeups across ImaginaryCTF, Midnight Flag, K17, BITS, Osu, tkb and others.",
+    "category": "ctf",
+    "featured": true,
+    "order": 10,
+    "stack": ["Markdown", "Python", "pwntools", "Ghidra", "gdb"],
+    "tags": ["ctf", "pwn", "rev", "notes"],
+    "links": {
+      "github": "https://github.com/R3izorr/CTF_writeup",
+      "docs": "/writeups"
+    },
+    "status": "active"
+  },
+  {
+    "slug": "sc2006-proj",
+    "repo": "R3izorr/sc2006-proj",
+    "title": "Hawker Opportunity Score Platform",
+    "summary": "Full-stack geospatial platform scoring business opportunity for Singapore's hawker centres. Built for SC2006 with Vite/React, FastAPI, PostGIS-style data and an AI assistant layer.",
+    "category": "web",
+    "featured": true,
+    "order": 20,
+    "stack": [
+      "TypeScript",
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Python",
+      "FastAPI",
+      "Leaflet",
+      "PostgreSQL"
+    ],
+    "tags": ["full-stack", "school", "sc2006", "geospatial"],
+    "links": {
+      "github": "https://github.com/R3izorr/sc2006-proj"
+    },
+    "status": "school"
+  },
+  {
+    "slug": "checksum-text-android-ndk",
+    "repo": "R3izorr/Checksum-.text-in-androidNDK",
+    "title": ".text Checksum for Android NDK",
+    "summary": "Native Android NDK tamper / hook detection sample. Computes a checksum of the loaded ELF .text segment and verifies integrity at runtime.",
+    "category": "security",
+    "featured": true,
+    "order": 30,
+    "stack": ["C++", "Android NDK", "ELF", "JNI"],
+    "tags": ["android", "anti-tamper", "integrity", "native"],
+    "links": {
+      "github": "https://github.com/R3izorr/Checksum-.text-in-androidNDK"
+    },
+    "status": "active"
+  },
+  {
+    "slug": "home-net-drift-monitor",
+    "repo": "R3izorr/home-net-drift-monitor",
+    "title": "Home Net Drift Monitor",
+    "summary": "A small home-network scanner that fingerprints devices, diffs against a baseline, scores risk, and can emit a PDF report of changes over time.",
+    "category": "security",
+    "featured": true,
+    "order": 40,
+    "stack": ["Python", "nmap", "PDF reporting", "SQLite"],
+    "tags": ["network", "monitoring", "defense"],
+    "links": {
+      "github": "https://github.com/R3izorr/home-net-drift-monitor"
+    },
+    "status": "active"
+  },
+  {
+    "slug": "sc2002-grp5",
+    "repo": "R3izorr/SC2002-GRP5",
+    "title": "SC2002 BTO Management System",
+    "summary": "NTU SC2002 group project: a Java CLI system managing BTO applications with reports, role-based flows, data persistence and Javadocs.",
+    "category": "school",
+    "featured": false,
+    "order": 60,
+    "stack": ["Java", "OOP", "CLI", "Javadoc"],
+    "tags": ["school", "sc2002", "java"],
+    "links": {
+      "github": "https://github.com/R3izorr/SC2002-GRP5"
+    },
+    "status": "school"
+  },
+  {
+    "slug": "blog",
+    "repo": "R3izorr/blog",
+    "title": "Personal Blog (MDX)",
+    "summary": "A minimal MDX blog playground — used as a scratchpad for longer-form writing, separate from the CTF writeups.",
+    "category": "tooling",
+    "featured": false,
+    "order": 70,
+    "stack": ["Next.js", "TypeScript", "MDX"],
+    "tags": ["blog", "mdx"],
+    "links": {
+      "github": "https://github.com/R3izorr/blog"
+    },
+    "status": "prototype"
+  }
+]

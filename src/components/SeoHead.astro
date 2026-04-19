@@ -1,0 +1,88 @@
+---
+import { SEO } from 'astro-seo';
+import ThemeProvider from './ThemeProvider.astro';
+
+type Props = {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+  author?: string;
+};
+
+const {
+  title,
+  description = 'R3izorr — Chien Nguyen. CS @ NTU Singapore. Aspiring cybersecurity engineer focused on reverse engineering, pwn, and CTFs.',
+  noindex = false,
+  nofollow = false,
+  image = '/og-default.svg',
+  type = 'website',
+  author = 'Chien Nguyen',
+} = Astro.props as Props;
+
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : Astro.url;
+
+const ogImage =
+  image && Astro.site
+    ? new URL(image.startsWith('/') ? image : `/${image}`, Astro.site).href
+    : undefined;
+
+const ldJson = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': type === 'article' ? 'TechArticle' : 'WebSite',
+  name: title,
+  headline: title,
+  description,
+  url: canonical.href,
+  image: ogImage,
+  author: {
+    '@type': 'Person',
+    name: author,
+    url: 'https://github.com/R3izorr',
+  },
+});
+---
+
+<SEO
+  title={title}
+  titleTemplate="%s · r3izorr"
+  titleDefault="r3izorr · Chien Nguyen"
+  charset="utf-8"
+  description={description}
+  canonical={canonical.href}
+  noindex={noindex}
+  nofollow={nofollow}
+  openGraph={{
+    basic: {
+      title,
+      type: type as string,
+      image: ogImage ?? '',
+      url: canonical.href,
+    },
+    optional: { description, siteName: 'r3izorr' },
+  }}
+  twitter={{
+    card: ogImage ? 'summary_large_image' : 'summary',
+    title,
+    description,
+    ...(ogImage ? { image: ogImage } : {}),
+  }}
+  extend={{
+    link: [
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'alternate icon', href: '/favicon.svg' },
+    ],
+    meta: [
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'generator', content: Astro.generator },
+      { name: 'theme-color', content: '#0f1115' },
+    ],
+  }}
+/>
+<script is:inline type="application/ld+json" set:html={ldJson} />
+{Astro.site && <link rel="sitemap" href="/sitemap-index.xml" />}
+<ThemeProvider />

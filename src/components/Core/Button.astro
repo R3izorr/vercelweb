@@ -1,0 +1,49 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = (HTMLAttributes<'a'> | HTMLAttributes<'button'>) & {
+  variant?: 'default' | 'primary' | 'ghost';
+  size?: 'sm' | 'default' | 'icon';
+};
+
+const {
+  class: classList,
+  variant = 'default',
+  size = 'default',
+  ...rest
+} = Astro.props as Props;
+
+const isLink = 'href' in rest && !!(rest as HTMLAttributes<'a'>).href;
+const Tag = isLink ? 'a' : 'button';
+const remoteLink =
+  isLink &&
+  typeof (rest as HTMLAttributes<'a'>).href === 'string' &&
+  /^https?:/.test((rest as HTMLAttributes<'a'>).href as string);
+
+const variantClasses: Record<NonNullable<Props['variant']>, string> = {
+  default: 'btn',
+  primary:
+    'btn border-[color:var(--color-accent-500)] bg-[color:var(--color-accent-500)] text-[color:var(--color-ink-bg)] hover:bg-[color:var(--color-accent-600)] hover:border-[color:var(--color-accent-600)]',
+  ghost: 'btn btn-ghost',
+};
+
+const sizeClasses: Record<NonNullable<Props['size']>, string> = {
+  sm: 'text-xs px-2 py-1',
+  default: '',
+  icon: 'p-2',
+};
+---
+
+<Tag
+  class={twMerge(
+    variantClasses[variant],
+    sizeClasses[size],
+    'hover:cursor-pointer',
+    classList as string | undefined,
+  )}
+  {...(remoteLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+  {...(rest as Record<string, unknown>)}
+>
+  <slot />
+</Tag>

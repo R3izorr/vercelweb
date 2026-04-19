@@ -1,0 +1,10 @@
+---
+import { getFeaturedProjects } from '../lib/projects';
+import ProjectCard from './ProjectCard.astro';
+
+const projects = getFeaturedProjects();
+---
+
+<div class="grid gap-3 sm:grid-cols-2">
+  {projects.map((p) => <ProjectCard project={p} />)}
+</div>

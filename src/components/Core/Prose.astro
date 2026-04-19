@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = HTMLAttributes<'div'>;
+const { class: classList, ...rest } = Astro.props as Props;
+---
+
+<div
+  class={twMerge(
+    'prose prose-sm prose-site max-w-none break-words',
+    'prose-headings:font-semibold',
+    'prose-pre:bg-[color:var(--color-bg-2)]',
+    'prose-pre:border prose-pre:border-[color:var(--color-border)]',
+    'prose-img:rounded prose-img:border prose-img:border-[color:var(--color-border)]',
+    'prose-a:no-underline prose-a:border-b prose-a:border-[color:var(--color-border)]',
+    'hover:prose-a:border-[color:var(--color-accent-500)]',
+    classList as string | undefined,
+  )}
+  {...rest}
+>
+  <slot />
+</div>

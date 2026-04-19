@@ -1,0 +1,20 @@
+---
+import { Icon } from 'astro-icon/components';
+import links from '../data/links.json';
+---
+
+<div class="flex flex-wrap gap-2">
+  {
+    links.map((l) => (
+      <a
+        href={l.url}
+        target={l.url.startsWith('http') ? '_blank' : undefined}
+        rel={l.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+        class="btn"
+      >
+        <Icon name={l.icon} class="w-4 h-4" />
+        <span>{l.label}</span>
+      </a>
+    ))
+  }
+</div>

@@ -1,0 +1,50 @@
+---
+slug: checksum-text-android-ndk
+repo: R3izorr/Checksum-.text-in-androidNDK
+title: .text Checksum for Android NDK
+summary: Native Android NDK tamper / hook detection sample. Computes a checksum of the loaded ELF .text segment and verifies integrity at runtime.
+category: security
+featured: true
+order: 30
+stack: ["C++", "Android NDK", "ELF", "JNI"]
+tags: ["android", "anti-tamper", "integrity", "native"]
+links:
+  github: https://github.com/R3izorr/Checksum-.text-in-androidNDK
+status: active
+---
+
+A small Android NDK sample that answers a simple security question at
+runtime:
+
+> Has my native `.text` been patched or hooked?
+
+## How it works
+
+- At **build** time, a post-build step walks the generated `.so`, locates
+  its `.text` section, and records an expected hash (plus the section's
+  `vaddr`/`size` so the runtime check knows exactly what region to hash).
+- At **runtime**, the library re-parses its own loaded ELF header from
+  `dl_iterate_phdr`, finds the live base of `.text`, hashes the same number
+  of bytes from memory, and compares against the expected hash embedded in
+  the binary.
+- If the hashes disagree, the library reports tamper — useful signal for
+  hooking frameworks (Frida, Xposed) that patch prologues, or for straight
+  binary edits.
+
+## Why this is interesting
+
+- It's a realistic "tamper canary" for mobile: simple in concept, but full
+  of small gotchas — ASLR, RELRO, Zygote, page alignment, and the fact
+  that simply reading `/proc/self/maps` is not the same as hashing
+  the live, potentially hooked code pages.
+- It demonstrates runtime ELF parsing from inside your own process without
+  leaning on any library.
+- It's deliberately small so the whole pipeline — build-time hashing plus
+  runtime verification — is readable in one sitting.
+
+## Limitations
+
+Integrity checks from inside the process they protect are not a security
+boundary. A sufficiently motivated attacker can disable or relocate the
+checker itself. The sample is intended as *defense in depth*, not as a
+primary mitigation.

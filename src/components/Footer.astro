@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+import links from '../data/links.json';
+
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="mt-16 border-t border-[color:var(--color-border)] py-8 text-xs text-[color:var(--color-tx-2)]"
+>
+  <div
+    class="mx-auto max-w-screen-lg px-4 flex flex-col sm:flex-row items-center justify-between gap-4"
+  >
+    <div class="flex flex-col sm:flex-row items-center gap-2">
+      <span>© {year} Chien Nguyen</span>
+      <span class="hidden sm:inline">·</span>
+      <span class="opacity-70">Built with Astro &amp; Tailwind</span>
+    </div>
+    <div class="flex items-center gap-3">
+      {
+        links.map((l) => (
+          <a
+            href={l.url}
+            target={l.url.startsWith('http') ? '_blank' : undefined}
+            rel={l.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+            aria-label={l.label}
+            title={l.label}
+            class="hover:text-[color:var(--color-accent-600)] dark:hover:text-[color:var(--color-accent-400)]"
+          >
+            <Icon name={l.icon} class="w-4 h-4" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

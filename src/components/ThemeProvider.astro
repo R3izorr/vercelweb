@@ -1,0 +1,18 @@
+---
+// Injects a small inline script that sets the initial theme before paint to prevent flashes.
+---
+
+<script is:inline>
+  (() => {
+    const stored =
+      typeof localStorage !== 'undefined' &&
+      localStorage.getItem('r3-theme');
+    const preferred =
+      typeof matchMedia !== 'undefined' &&
+      matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+    const theme = stored === 'light' || stored === 'dark' ? stored : preferred;
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>

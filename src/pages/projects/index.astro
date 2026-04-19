@@ -1,0 +1,47 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/projects';
+
+const projects = getProjects();
+const groups = new Map<string, typeof projects>();
+projects.forEach((p) => {
+  const arr = groups.get(p.category) ?? [];
+  arr.push(p);
+  groups.set(p.category, arr);
+});
+const categoryOrder = ['security', 'systems', 'web', 'school', 'tool', 'other'];
+const categories = [...groups.keys()].sort(
+  (a, b) => (categoryOrder.indexOf(a) + 100) - (categoryOrder.indexOf(b) + 100),
+);
+---
+
+<PageLayout
+  title="Projects — R3izorr"
+  description="Security research, systems programming, and coursework projects."
+  breadcrumbs={[{ label: 'Projects', href: '/projects' }]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight">Projects</h1>
+    <p class="text-sm text-[color:var(--color-tx-2)] mt-1">
+      A snapshot of what I've been working on — repositories with local
+      metadata overlaid on live GitHub signals.
+    </p>
+  </header>
+
+  {
+    categories.map((cat) => {
+      const list = groups.get(cat)!;
+      return (
+        <section class="mb-8">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-tx-2)] mb-3">
+            {cat}
+          </h2>
+          <div class="grid gap-3 sm:grid-cols-2">
+            {list.map((p) => <ProjectCard project={p} />)}
+          </div>
+        </section>
+      );
+    })
+  }
+</PageLayout>

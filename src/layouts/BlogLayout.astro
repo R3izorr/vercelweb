@@ -1,0 +1,59 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Prose from '../components/Core/Prose.astro';
+
+type Props = {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+  author?: string;
+  breadcrumbs?: { label: string; href: string }[];
+  headings?: MarkdownHeading[];
+};
+
+const { headings = [], ...rest } = Astro.props as Props;
+
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
+---
+
+<BaseLayout {...rest} type="article">
+  <div
+    class="mx-auto max-w-screen-xl px-4 py-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px]"
+  >
+    <article class="min-w-0">
+      <Prose>
+        <slot />
+      </Prose>
+    </article>
+    {
+      tocHeadings.length > 0 && (
+        <aside class="hidden lg:block">
+          <div class="sticky top-24 text-xs">
+            <div class="font-semibold text-[color:var(--color-tx)] mb-2 uppercase tracking-wider">
+              On this page
+            </div>
+            <ul class="space-y-1">
+              {tocHeadings.map((h) => (
+                <li
+                  style={`padding-left:${(h.depth - 2) * 0.75}rem`}
+                  class="truncate"
+                >
+                  <a
+                    href={`#${h.slug}`}
+                    class="text-[color:var(--color-tx-2)] hover:text-[color:var(--color-accent-600)] dark:hover:text-[color:var(--color-accent-400)]"
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      )
+    }
+  </div>
+</BaseLayout>

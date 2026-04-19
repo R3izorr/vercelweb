@@ -1,0 +1,45 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import WriteupCard from '../../../components/WriteupCard.astro';
+import { Icon } from 'astro-icon/components';
+import {
+  getWriteups,
+  getCategories,
+  CATEGORY_LABELS,
+  CATEGORY_ICONS,
+} from '../../../lib/writeups';
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.map((c) => ({ params: { category: c.category } }));
+}
+
+const { category } = Astro.params;
+const all = await getWriteups();
+const entries = all.filter((e) => e.data.category === category);
+const label = CATEGORY_LABELS[category!] ?? category;
+const icon = CATEGORY_ICONS[category!] ?? 'lucide:tag';
+---
+
+<PageLayout
+  title={`${label} writeups — R3izorr`}
+  description={`CTF writeups in ${label}`}
+  breadcrumbs={[
+    { label: 'Writeups', href: '/writeups' },
+    { label: 'Categories', href: '/writeups/categories' },
+    { label: label, href: `/writeups/categories/${category}` },
+  ]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight flex items-center gap-2">
+      <Icon name={icon} class="w-5 h-5" /> {label}
+    </h1>
+    <p class="text-sm text-[color:var(--color-tx-2)] mt-1">
+      {entries.length} writeup{entries.length === 1 ? '' : 's'}
+    </p>
+  </header>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    {entries.map((e) => <WriteupCard entry={e} />)}
+  </div>
+</PageLayout>

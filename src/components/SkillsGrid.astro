@@ -1,0 +1,19 @@
+---
+import skills from '../data/skills.json';
+import Chip from './Core/Chip.astro';
+---
+
+<div class="grid gap-4 sm:grid-cols-2">
+  {
+    skills.groups.map((g) => (
+      <div class="card p-4">
+        <div class="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-tx-2)] mb-3">
+          {g.title}
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          {g.items.map((s) => <Chip>{s}</Chip>)}
+        </div>
+      </div>
+    ))
+  }
+</div>

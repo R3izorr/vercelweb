@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "title": "Security & Reverse Engineering",
+      "items": [
+        "Ghidra",
+        "IDA",
+        "radare2",
+        "pwntools",
+        "gdb / pwndbg",
+        "Binary exploitation (pwn)",
+        "Reverse engineering",
+        "Heap internals (glibc)",
+        "Android NDK / ELF"
+      ]
+    },
+    {
+      "title": "Languages",
+      "items": ["C", "C++", "Python", "TypeScript", "Java", "Go", "Bash"]
+    },
+    {
+      "title": "Web & Full-stack",
+      "items": [
+        "React",
+        "Next.js",
+        "Astro",
+        "Vite",
+        "Tailwind CSS",
+        "FastAPI",
+        "Express",
+        "Prisma",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "title": "Systems & Tooling",
+      "items": [
+        "Linux",
+        "Docker",
+        "Git",
+        "Wireshark",
+        "nmap",
+        "Leaflet / geospatial",
+        "MDX / Astro content"
+      ]
+    }
+  ]
+}

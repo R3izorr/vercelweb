@@ -1,0 +1,65 @@
+---
+import { Icon } from 'astro-icon/components';
+import Card from './Core/Card.astro';
+import Chip from './Core/Chip.astro';
+import { langColor, formatMonthYear } from '../lib/format';
+import type { EnrichedProject } from '../lib/projects';
+
+type Props = { project: EnrichedProject; compact?: boolean };
+const { project: p, compact = false } = Astro.props as Props;
+---
+
+<Card href={`/projects/${p.slug}`} class="flex flex-col gap-3">
+  <div class="flex items-start justify-between gap-3">
+    <div>
+      <div class="text-sm font-semibold">{p.title}</div>
+      <div class="text-xs text-[color:var(--color-tx-3)] font-mono mt-0.5">
+        {p.repo}
+      </div>
+    </div>
+    {p.featured && (
+      <Chip tone="accent">
+        <Icon name="lucide:star" class="w-3 h-3" /> featured
+      </Chip>
+    )}
+  </div>
+
+  <p class="text-xs text-[color:var(--color-tx-2)] leading-relaxed line-clamp-3">
+    {p.summary}
+  </p>
+
+  {!compact && p.stack && p.stack.length > 0 && (
+    <div class="flex flex-wrap gap-1">
+      {p.stack.slice(0, 6).map((s) => <Chip>{s}</Chip>)}
+    </div>
+  )}
+
+  <div class="mt-auto pt-1 flex items-center justify-between text-[11px] text-[color:var(--color-tx-3)]">
+    <div class="flex items-center gap-3">
+      {p.primaryLanguage && (
+        <span class="flex items-center gap-1">
+          <span
+            class="inline-block w-2 h-2 rounded-full"
+            style={`background:${langColor(p.primaryLanguage)}`}
+          />
+          {p.primaryLanguage}
+        </span>
+      )}
+      {typeof p.stars === 'number' && p.stars > 0 && (
+        <span class="flex items-center gap-1">
+          <Icon name="lucide:star" class="w-3 h-3" /> {p.stars}
+        </span>
+      )}
+      {typeof p.forks === 'number' && p.forks > 0 && (
+        <span class="flex items-center gap-1">
+          <Icon name="lucide:git-fork" class="w-3 h-3" /> {p.forks}
+        </span>
+      )}
+    </div>
+    {p.pushedAt && (
+      <span class="font-mono">
+        {formatMonthYear(p.pushedAt)}
+      </span>
+    )}
+  </div>
+</Card>

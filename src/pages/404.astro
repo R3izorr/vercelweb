@@ -1,0 +1,21 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="404 — R3izorr"
+  description="Page not found"
+  noindex={true}
+>
+  <div class="py-16 text-center">
+    <div class="font-mono text-6xl font-semibold tracking-tight">404</div>
+    <p class="text-[color:var(--color-tx-2)] mt-3">
+      Segmentation fault — no such page.
+    </p>
+    <div class="mt-6 flex gap-2 justify-center">
+      <a href="/" class="btn">Home</a>
+      <a href="/writeups" class="btn btn-ghost">Writeups</a>
+      <a href="/projects" class="btn btn-ghost">Projects</a>
+    </div>
+  </div>
+</PageLayout>

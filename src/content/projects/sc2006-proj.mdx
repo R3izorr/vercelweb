@@ -1,0 +1,51 @@
+---
+slug: sc2006-proj
+repo: R3izorr/sc2006-proj
+title: Hawker Opportunity Score Platform
+summary: Full-stack geospatial platform scoring business opportunity for Singapore's hawker centres. Built for SC2006 with Vite/React, FastAPI, PostGIS-style data and an AI assistant layer.
+category: web
+featured: true
+order: 20
+stack:
+  - TypeScript
+  - React
+  - Vite
+  - Tailwind CSS
+  - Python
+  - FastAPI
+  - Leaflet
+  - PostgreSQL
+tags: ["full-stack", "school", "sc2006", "geospatial", "ai"]
+links:
+  github: https://github.com/R3izorr/sc2006-proj
+status: school
+---
+
+Group project for NTU SC2006 (Software Engineering). The product answers one
+question: *"If I wanted to open a stall, which hawker centre gives me the
+best shot?"*
+
+## What it does
+
+- Pulls hawker-centre data and public datasets, joins them to geospatial
+  boundaries, and scores each centre by demand, competition, and supporting
+  amenities.
+- Displays results on a Leaflet map and in a sortable, filterable dashboard.
+- Lets a user draw a custom service area and recompute the score.
+- Has a small AI assistant that explains why a score was given and suggests
+  what to look at next.
+
+## Stack split
+
+- **Frontend** (`/client`): Vite + React + TypeScript, Tailwind, Leaflet for
+  maps.
+- **Backend** (`/server`): FastAPI with typed routers, SQLAlchemy, scoring
+  services, geospatial helpers.
+- **Data**: seeded from public datasets; schema is geo-aware so score
+  recomputation stays fast.
+
+## What I worked on
+
+- Scoring pipeline and API design.
+- Map interaction layer (hover states, per-centre overlays, isolines).
+- The assistant's "explain this score" flow on top of the scoring service.

@@ -1,0 +1,17 @@
+[
+  {
+    "label": "GitHub",
+    "url": "https://github.com/R3izorr",
+    "icon": "simple-icons:github"
+  },
+  {
+    "label": "LinkedIn",
+    "url": "https://www.linkedin.com/in/tr%E1%BA%A7n-chi%E1%BA%BFn-nguy%E1%BB%85n-951534252/",
+    "icon": "simple-icons:linkedin"
+  },
+  {
+    "label": "CTF Writeup repo",
+    "url": "https://github.com/R3izorr/CTF_writeup",
+    "icon": "lucide:flag"
+  }
+]

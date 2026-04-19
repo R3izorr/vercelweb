@@ -1,0 +1,42 @@
+---
+slug: ctf-writeup
+repo: R3izorr/CTF_writeup
+title: CTF Writeups
+summary: A growing collection of reverse engineering and binary exploitation writeups across ImaginaryCTF, Midnight Flag, K17, BITS, Osu, tkb and others.
+category: ctf
+featured: true
+order: 10
+stack: ["Markdown", "Python", "pwntools", "Ghidra", "gdb"]
+tags: ["ctf", "pwn", "rev", "notes"]
+links:
+  github: https://github.com/R3izorr/CTF_writeup
+  docs: /writeups
+status: active
+---
+
+`CTF_writeup` is my long-form CTF notebook. It collects challenge notes,
+exploit scripts, and breakdowns from events I play — with a strong bias
+toward **reverse engineering** and **binary exploitation**.
+
+A curated subset is re-published as MDX inside this site's
+[Writeups](/writeups) section. The full working directory — including
+challenge binaries, libc/ld, Docker setups, and solve scripts — lives in
+the source repository on GitHub.
+
+## What lives there
+
+- Heap bugs on modern glibc (2.34 / 2.39) with safe-linking bypasses, tcache
+  poisoning, and exit-handler forgery.
+- Classic reverse-engineering challenges: small VMs, obfuscated Go, Nim
+  binaries, Android/NDK targets, custom ciphers.
+- A few web / full-stack chains where the real bug is in a native component
+  reached through a web front.
+- Occasional crypto and OSINT notes when the category shows up.
+
+## How I take notes
+
+Each writeup starts with a short triage: protections, libc, a rough plan.
+Then I walk the exploit in readable pieces — leaks, primitives, the pivot,
+and the trigger — with the finished `solve.py` at the end.
+
+The goal is for the write-up to teach the *approach*, not only the payload.

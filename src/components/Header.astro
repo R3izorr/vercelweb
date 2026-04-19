@@ -1,0 +1,62 @@
+---
+import { Icon } from 'astro-icon/components';
+import ThemeToggle from './ThemeToggle.astro';
+
+type Item = { url: string; title: string };
+
+type Props = { items: Item[] };
+
+const { items } = Astro.props as Props;
+const path = Astro.url.pathname;
+const active = (url: string) => (url === '/' ? path === '/' : path.startsWith(url));
+---
+
+<header
+  class="sticky top-0 z-20 backdrop-blur-md bg-[color:var(--color-bg)]/80 border-b border-[color:var(--color-border)]"
+  id="site-header"
+>
+  <div class="mx-auto max-w-screen-lg px-4">
+    <div class="flex items-center justify-between gap-4 py-3">
+      <a
+        href="/"
+        class="flex items-center gap-2 font-semibold text-[color:var(--color-tx)] hover:text-[color:var(--color-accent-600)] dark:hover:text-[color:var(--color-accent-400)]"
+      >
+        <span
+          class="inline-flex items-center justify-center h-6 w-6 rounded border border-[color:var(--color-border)] bg-[color:var(--color-bg-2)] text-[color:var(--color-accent-600)] dark:text-[color:var(--color-accent-400)] text-[10px] font-mono"
+        >
+          R3
+        </span>
+        <span class="text-sm">r3izorr</span>
+      </a>
+
+      <nav class="flex items-center gap-1">
+        {
+          items.map((item) => (
+            <a
+              href={item.url}
+              class:list={[
+                'px-3 py-1.5 rounded text-xs font-medium',
+                active(item.url)
+                  ? 'text-[color:var(--color-accent-600)] bg-[color:var(--color-bg-2)] dark:text-[color:var(--color-accent-400)]'
+                  : 'text-[color:var(--color-tx-2)] hover:text-[color:var(--color-tx)] hover:bg-[color:var(--color-bg-2)]',
+              ]}
+            >
+              {item.title}
+            </a>
+          ))
+        }
+        <a
+          href="https://github.com/R3izorr"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:inline-flex btn btn-ghost p-2"
+          aria-label="GitHub"
+          title="GitHub"
+        >
+          <Icon name="lucide:github" />
+        </a>
+        <ThemeToggle />
+      </nav>
+    </div>
+  </div>
+</header>

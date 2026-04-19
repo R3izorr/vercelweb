@@ -1,0 +1,50 @@
+---
+slug: home-net-drift-monitor
+repo: R3izorr/home-net-drift-monitor
+title: Home Net Drift Monitor
+summary: A small home-network scanner that fingerprints devices, diffs against a baseline, scores risk, and can emit a PDF report of changes over time.
+category: security
+featured: true
+order: 40
+stack: ["Python", "nmap", "PDF reporting", "SQLite"]
+tags: ["network", "monitoring", "defense"]
+links:
+  github: https://github.com/R3izorr/home-net-drift-monitor
+status: active
+---
+
+A lightweight tool for spotting change on a home LAN without having to stare
+at `nmap` output by hand.
+
+## The idea
+
+Most small networks do not need continuous security monitoring — but they
+do benefit from a **diff**. A guest's phone, a new smart plug, an
+unpatched box re-joining, a TV that opened an extra service overnight —
+all of those are things a noisy full security stack would drown out but
+that are very visible to a weekly "what changed?" run.
+
+## What it does
+
+- **Scan**: discovers live hosts on your subnet, fingerprints services,
+  gathers MAC/OUI hints where available.
+- **Baseline**: persists the observed state to local storage (SQLite /
+  JSON), so the next run has something to compare against.
+- **Diff**: computes added, removed, and changed hosts and services.
+- **Risk score**: weights the diff (new host on uncommon port, SSH opening
+  on a printer, etc.) rather than just dumping deltas.
+- **Report**: emits a PDF summary of the run and a human-readable list of
+  changes.
+
+## Structure
+
+The codebase is split into small modules:
+
+- `scanner` — the actual scan logic.
+- `diff` — comparison between baseline and current state.
+- `risk` — scoring rules.
+- `storage` — baseline persistence.
+- `report` — PDF generation.
+
+Each module can be driven independently, which makes it easy to iterate
+on just the risk rules without running a full scan every time.

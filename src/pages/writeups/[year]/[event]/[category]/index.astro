@@ -1,0 +1,64 @@
+---
+import PageLayout from '../../../../../layouts/PageLayout.astro';
+import WriteupCard from '../../../../../components/WriteupCard.astro';
+import { Icon } from 'astro-icon/components';
+import {
+  getWriteups,
+  writeupSlugParts,
+  CATEGORY_LABELS,
+  CATEGORY_ICONS,
+} from '../../../../../lib/writeups';
+
+export async function getStaticPaths() {
+  const entries = await getWriteups();
+  const map = new Map<
+    string,
+    { year: string; event: string; category: string; eventName: string }
+  >();
+  for (const e of entries) {
+    const { year, event, category } = writeupSlugParts(e);
+    const key = `${year}/${event}/${category}`;
+    if (!map.has(key)) {
+      map.set(key, { year, event, category, eventName: e.data.event });
+    }
+  }
+  return [...map.values()].map((v) => ({
+    params: { year: v.year, event: v.event, category: v.category },
+    props: { eventName: v.eventName },
+  }));
+}
+
+const { year, event, category } = Astro.params;
+const { eventName } = Astro.props as { eventName: string };
+const all = await getWriteups();
+const entries = all.filter((e) => {
+  const p = writeupSlugParts(e);
+  return p.year === year && p.event === event && p.category === category;
+});
+const catLabel = CATEGORY_LABELS[category!] ?? category;
+const catIcon = CATEGORY_ICONS[category!] ?? 'lucide:tag';
+---
+
+<PageLayout
+  title={`${catLabel} · ${eventName} ${year} — R3izorr`}
+  description={`${catLabel} writeups from ${eventName} (${year})`}
+  breadcrumbs={[
+    { label: 'Writeups', href: '/writeups' },
+    { label: String(year), href: `/writeups/${year}` },
+    { label: eventName, href: `/writeups/${year}/${event}` },
+    { label: catLabel, href: `/writeups/${year}/${event}/${category}` },
+  ]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight flex items-center gap-2">
+      <Icon name={catIcon} class="w-5 h-5" /> {catLabel}
+    </h1>
+    <div class="text-sm text-[color:var(--color-tx-2)] mt-1">
+      {eventName} · <span class="font-mono">{year}</span>
+    </div>
+  </header>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    {entries.map((e) => <WriteupCard entry={e} showEvent={false} />)}
+  </div>
+</PageLayout>

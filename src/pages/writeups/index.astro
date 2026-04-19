@@ -1,0 +1,69 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import WriteupCard from '../../components/WriteupCard.astro';
+import Chip from '../../components/Core/Chip.astro';
+import { Icon } from 'astro-icon/components';
+import { getWriteups, getCategories, getYears } from '../../lib/writeups';
+
+const writeups = await getWriteups();
+const categories = await getCategories();
+const years = await getYears();
+---
+
+<PageLayout
+  title="Writeups — R3izorr"
+  description="CTF writeups — mostly pwn and reverse engineering."
+  breadcrumbs={[{ label: 'Writeups', href: '/writeups' }]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight">Writeups</h1>
+    <p class="text-sm text-[color:var(--color-tx-2)] mt-1">
+      {writeups.length} curated writeups across {years.length} year{years.length === 1 ? '' : 's'}.
+      Pulled from my
+      <a
+        href="https://github.com/R3izorr/CTF_writeup"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-underline"
+      >CTF_writeup</a> repo.
+    </p>
+  </header>
+
+  <div class="flex flex-wrap gap-2 mb-6 text-xs">
+    <a href="/writeups/categories" class="btn btn-ghost">
+      <Icon name="lucide:folder-tree" class="w-3.5 h-3.5" /> browse by category
+    </a>
+    <a href="/writeups/tags" class="btn btn-ghost">
+      <Icon name="lucide:tags" class="w-3.5 h-3.5" /> browse by tag
+    </a>
+    {years.map((y) => (
+      <a href={`/writeups/${y}`} class="btn btn-ghost">
+        <Icon name="lucide:calendar" class="w-3.5 h-3.5" /> {y}
+      </a>
+    ))}
+  </div>
+
+  <section class="mb-8">
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-tx-2)] mb-3">
+      Categories
+    </h2>
+    <div class="flex flex-wrap gap-1.5">
+      {categories.map((c) => (
+        <a href={`/writeups/categories/${c.category}`}>
+          <Chip>
+            {c.label} <span class="text-[color:var(--color-tx-3)]">· {c.count}</span>
+          </Chip>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-tx-2)] mb-3">
+      All writeups
+    </h2>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {writeups.map((e) => <WriteupCard entry={e} />)}
+    </div>
+  </section>
+</PageLayout>

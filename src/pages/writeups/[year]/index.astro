@@ -1,0 +1,60 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import WriteupCard from '../../../components/WriteupCard.astro';
+import { Icon } from 'astro-icon/components';
+import { getWriteups, getYears, getEvents, writeupSlugParts } from '../../../lib/writeups';
+
+export async function getStaticPaths() {
+  const years = await getYears();
+  return years.map((year) => ({ params: { year: String(year) } }));
+}
+
+const year = Number(Astro.params.year);
+const all = await getWriteups();
+const entries = all.filter((e) => e.data.year === year);
+const events = (await getEvents(year)).map((e) => e);
+---
+
+<PageLayout
+  title={`Writeups · ${year} — R3izorr`}
+  description={`CTFs played in ${year}`}
+  breadcrumbs={[
+    { label: 'Writeups', href: '/writeups' },
+    { label: String(year), href: `/writeups/${year}` },
+  ]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight">{year}</h1>
+    <p class="text-sm text-[color:var(--color-tx-2)] mt-1">
+      {entries.length} writeups across {events.length} event{events.length === 1 ? '' : 's'}.
+    </p>
+  </header>
+
+  <section class="mb-8">
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-tx-2)] mb-3">
+      Events
+    </h2>
+    <div class="flex flex-wrap gap-2">
+      {events.map((e) => {
+        const sample = entries.find((w) => w.data.event === e.event);
+        const eventSlug = sample ? writeupSlugParts(sample).event : e.slug;
+        return (
+          <a href={`/writeups/${year}/${eventSlug}`} class="btn btn-ghost">
+            <Icon name="lucide:flag" class="w-3.5 h-3.5" />
+            {e.event}
+            <span class="text-[color:var(--color-tx-3)]">· {e.count}</span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-[color:var(--color-tx-2)] mb-3">
+      All from {year}
+    </h2>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {entries.map((e) => <WriteupCard entry={e} />)}
+    </div>
+  </section>
+</PageLayout>

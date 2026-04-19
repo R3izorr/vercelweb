@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+type Props = {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+  author?: string;
+  breadcrumbs?: { label: string; href: string }[];
+};
+
+const {
+  title,
+  description,
+  noindex,
+  nofollow,
+  image,
+  type,
+  author,
+  breadcrumbs,
+} = Astro.props as Props;
+
+const navItems = [
+  { url: '/', title: 'Home' },
+  { url: '/projects', title: 'Projects' },
+  { url: '/writeups', title: 'Writeups' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      noindex={noindex}
+      nofollow={nofollow}
+      image={image}
+      type={type}
+      author={author}
+    />
+  </head>
+  <body class="min-h-svh flex flex-col">
+    <Header items={navItems} />
+    <main class="flex-1">
+      {
+        breadcrumbs && breadcrumbs.length > 0 && (
+          <div class="mx-auto max-w-screen-lg w-full px-4 pt-4">
+            <Breadcrumb items={breadcrumbs} />
+          </div>
+        )
+      }
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

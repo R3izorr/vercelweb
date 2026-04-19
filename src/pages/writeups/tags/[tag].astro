@@ -1,0 +1,35 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import WriteupCard from '../../../components/WriteupCard.astro';
+import { getWriteups, getTags } from '../../../lib/writeups';
+
+export async function getStaticPaths() {
+  const tags = await getTags();
+  return tags.map((t) => ({ params: { tag: t.tag } }));
+}
+
+const { tag } = Astro.params;
+const all = await getWriteups();
+const entries = all.filter((e) => (e.data.tags ?? []).includes(tag!));
+---
+
+<PageLayout
+  title={`#${tag} writeups — R3izorr`}
+  description={`Writeups tagged ${tag}`}
+  breadcrumbs={[
+    { label: 'Writeups', href: '/writeups' },
+    { label: 'Tags', href: '/writeups/tags' },
+    { label: `#${tag}`, href: `/writeups/tags/${tag}` },
+  ]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight font-mono">#{tag}</h1>
+    <p class="text-sm text-[color:var(--color-tx-2)] mt-1">
+      {entries.length} writeup{entries.length === 1 ? '' : 's'}
+    </p>
+  </header>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    {entries.map((e) => <WriteupCard entry={e} />)}
+  </div>
+</PageLayout>

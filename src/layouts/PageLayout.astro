@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+type Props = {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+  author?: string;
+  breadcrumbs?: { label: string; href: string }[];
+};
+
+const props = Astro.props as Props;
+---
+
+<BaseLayout {...props}>
+  <div class="mx-auto max-w-screen-lg px-4 py-8">
+    <slot />
+  </div>
+</BaseLayout>

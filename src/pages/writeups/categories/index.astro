@@ -1,0 +1,36 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import Card from '../../../components/Core/Card.astro';
+import { Icon } from 'astro-icon/components';
+import { getCategories, CATEGORY_ICONS } from '../../../lib/writeups';
+
+const categories = await getCategories();
+---
+
+<PageLayout
+  title="Writeup categories — R3izorr"
+  description="Browse CTF writeups by category"
+  breadcrumbs={[
+    { label: 'Writeups', href: '/writeups' },
+    { label: 'Categories', href: '/writeups/categories' },
+  ]}
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold tracking-tight">Categories</h1>
+  </header>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    {categories.map((c) => (
+      <Card href={`/writeups/categories/${c.category}`} class="flex items-center gap-3">
+        <Icon name={CATEGORY_ICONS[c.category] ?? 'lucide:tag'} class="w-5 h-5" />
+        <div class="flex-1">
+          <div class="text-sm font-semibold">{c.label}</div>
+          <div class="text-xs text-[color:var(--color-tx-3)] mt-0.5">
+            {c.count} writeup{c.count === 1 ? '' : 's'}
+          </div>
+        </div>
+        <Icon name="lucide:arrow-right" class="w-4 h-4 text-[color:var(--color-tx-3)]" />
+      </Card>
+    ))}
+  </div>
+</PageLayout>
