@@ -26,7 +26,9 @@ import { dirname, join, relative, resolve, sep } from 'node:path';
 const SOURCE_REPO = 'R3izorr/CTF_writeup';
 const DEFAULT_SOURCE_DIR = '/tmp/r3izorr-CTF_writeup';
 const DEFAULT_OUT_DIR = resolve(process.cwd(), 'src/content/writeups');
-const DEFAULT_YEAR = 2025;
+const DEFAULT_YEAR = Number(
+  process.env['CTF_WRITEUP_DEFAULT_YEAR'] ?? new Date().getFullYear(),
+);
 
 const sourceDir = resolve(process.argv[2] ?? DEFAULT_SOURCE_DIR);
 const outDir = resolve(process.argv[3] ?? DEFAULT_OUT_DIR);
