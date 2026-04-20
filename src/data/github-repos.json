@@ -1,6 +1,29 @@
 {
-  "fetchedAt": "2026-04-19T18:07:57.946Z",
+  "fetchedAt": "2026-04-20T14:51:43.030Z",
   "repos": [
+    {
+      "name": "AgenticNetSec",
+      "fullName": "R3izorr/AgenticNetSec",
+      "description": "AgenticNetSec network forensic analysis platform",
+      "htmlUrl": "https://github.com/R3izorr/AgenticNetSec",
+      "homepage": null,
+      "language": "Python",
+      "topics": [],
+      "stargazersCount": 0,
+      "forksCount": 0,
+      "openIssuesCount": 0,
+      "watchersCount": 0,
+      "size": 14238,
+      "archived": false,
+      "fork": false,
+      "private": false,
+      "disabled": false,
+      "defaultBranch": "dev-main",
+      "license": "Apache-2.0",
+      "createdAt": "2026-04-20T13:13:08Z",
+      "updatedAt": "2026-04-20T14:49:29Z",
+      "pushedAt": "2026-04-20T13:22:18Z"
+    },
     {
       "name": "vercelweb",
       "fullName": "R3izorr/vercelweb",
@@ -13,7 +36,7 @@
       "forksCount": 0,
       "openIssuesCount": 0,
       "watchersCount": 0,
-      "size": 0,
+      "size": 195,
       "archived": false,
       "fork": false,
       "private": false,
@@ -21,8 +44,8 @@
       "defaultBranch": "main",
       "license": null,
       "createdAt": "2026-04-19T17:40:46Z",
-      "updatedAt": "2026-04-19T18:07:54Z",
-      "pushedAt": "2026-04-19T18:07:50Z"
+      "updatedAt": "2026-04-20T13:09:21Z",
+      "pushedAt": "2026-04-20T13:09:17Z"
     },
     {
       "name": "CTF_writeup",
@@ -30,13 +53,13 @@
       "description": "Focus on rev and pwn",
       "htmlUrl": "https://github.com/R3izorr/CTF_writeup",
       "homepage": null,
-      "language": "HTML",
+      "language": "Python",
       "topics": [],
       "stargazersCount": 0,
       "forksCount": 0,
       "openIssuesCount": 0,
       "watchersCount": 0,
-      "size": 20147,
+      "size": 22266,
       "archived": false,
       "fork": false,
       "private": false,
@@ -44,8 +67,8 @@
       "defaultBranch": "main",
       "license": null,
       "createdAt": "2025-09-07T17:44:16Z",
-      "updatedAt": "2026-03-16T02:32:36Z",
-      "pushedAt": "2026-03-16T02:32:32Z"
+      "updatedAt": "2026-04-20T13:02:41Z",
+      "pushedAt": "2026-04-20T13:02:36Z"
     },
     {
       "name": "blog",

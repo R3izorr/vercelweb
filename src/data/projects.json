@@ -40,6 +40,29 @@
     "status": "school"
   },
   {
+    "slug": "agentic-netsec",
+    "repo": "R3izorr/AgenticNetSec",
+    "title": "AgenticNetSec",
+    "summary": "Network forensic analysis platform that turns large PCAP batches into deterministic evidence, per-file reports, enrichment results, and campaign-level ransomware investigation summaries.",
+    "category": "security",
+    "featured": true,
+    "order": 25,
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "tshark",
+      "Scapy",
+      "AI summaries"
+    ],
+    "tags": ["network-forensics", "pcap", "ransomware", "incident-response"],
+    "links": {
+      "github": "https://github.com/R3izorr/AgenticNetSec"
+    },
+    "status": "active"
+  },
+  {
     "slug": "checksum-text-android-ndk",
     "repo": "R3izorr/Checksum-.text-in-androidNDK",
     "title": ".text Checksum for Android NDK",

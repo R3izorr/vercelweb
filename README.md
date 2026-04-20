@@ -30,6 +30,7 @@ Selected projects from my GitHub profile, including:
 
 - `CTF_writeup` — my public CTF writeup collection
 - `sc2006-proj` — Hawker Opportunity Score Platform
+- `AgenticNetSec` — PCAP investigation and ransomware campaign analysis tool
 - `Checksum-.text-in-androidNDK` — Android NDK ELF `.text` integrity checker
 - `home-net-drift-monitor` — Python home network drift monitor
 - `SC2002-GRP5` — Java BTO management system

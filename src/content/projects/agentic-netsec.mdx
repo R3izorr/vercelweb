@@ -1,0 +1,76 @@
+---
+slug: agentic-netsec
+repo: R3izorr/AgenticNetSec
+title: AgenticNetSec
+summary: Network forensic analysis platform that turns large PCAP batches into deterministic evidence, per-file reports, enrichment results, and campaign-level ransomware investigation summaries.
+category: security
+featured: true
+order: 25
+stack:
+  - Python
+  - FastAPI
+  - Next.js
+  - TypeScript
+  - tshark
+  - Scapy
+  - AI summaries
+tags: ["network-forensics", "pcap", "ransomware", "incident-response"]
+links:
+  github: https://github.com/R3izorr/AgenticNetSec
+status: active
+---
+
+AgenticNetSec is a network forensic analysis platform for ransomware and
+intrusion triage. It is built to process many packet captures at once, then
+turn the raw traffic into structured evidence, per-file reports, enrichment
+artifacts, and a campaign-level attack summary.
+
+## What it answers
+
+The investigation flow is built around four practical incident-response
+questions:
+
+- How did the attacker get initial access?
+- How did they discover and move through the network?
+- Did data leave the environment?
+- How was the payload deployed?
+
+## Two-stage workflow
+
+**Stage 1** is deterministic per-file analysis. Each PCAP is processed
+individually to extract repeatable evidence: network indicators, suspicious
+protocols, traffic volumes, RDP activity, SMB/RPC activity, exfiltration
+candidates, and local report artifacts.
+
+**Stage 2** works at the parent batch level. It combines completed Stage 1
+records, deduplicates findings, runs targeted follow-up checks, performs
+sandbox-style verification, handles delayed payload-carving logic, and creates
+a campaign-level AI summary.
+
+## Why it matters
+
+One PCAP rarely tells the whole story. One capture might show external RDP
+access, another might show SMB scanning, and another might show a large
+outbound transfer. AgenticNetSec is designed to keep those pieces inspectable
+while still connecting them into one incident narrative.
+
+In the demo dataset, the workflow reduces 129 PCAP files into per-file
+reports, structured records, enrichment results, and a final summary mapped to
+initial access, lateral movement, exfiltration, and payload deployment.
+
+## Stack
+
+- **Backend**: FastAPI, Python, deterministic detectors, job stores, report
+  generation, enrichment logic.
+- **Frontend**: Next.js and TypeScript pages for upload, batch progress,
+  per-file inspection, total jobs, and campaign summaries.
+- **Analysis**: `tshark`, Scapy-style packet inspection, protocol indicators,
+  traffic-volume heuristics, payload-carving support.
+- **AI layer**: campaign summary generation from structured evidence rather
+  than raw packets.
+
+## Main takeaway
+
+AgenticNetSec does not just summarize packets. It helps separate what is
+known, what is suspected, and what still cannot be proven from the available
+captures.
