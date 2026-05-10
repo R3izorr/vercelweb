@@ -16,7 +16,7 @@ const { items, class: classList } = Astro.props as Props;
           {index === items.length - 1 ? (
             <span class="text-[color:var(--color-tx)]">{item.label}</span>
           ) : (
-            <a href={item.href} class="hover:text-[color:var(--color-accent-600)] dark:hover:text-[color:var(--color-accent-400)]">
+            <a href={item.href} class="hover:text-[color:var(--color-accent-600)]">
               {item.label}
             </a>
           )}

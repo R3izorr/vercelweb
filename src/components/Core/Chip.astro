@@ -11,7 +11,7 @@ const { class: classList, tone = 'default', ...rest } = Astro.props as Props;
 const toneClasses: Record<NonNullable<Props['tone']>, string> = {
   default: '',
   accent:
-    'text-[color:var(--color-accent-700)] border-[color:var(--color-accent-500)]/40 dark:text-[color:var(--color-accent-300)]',
+    'text-[color:var(--color-accent-700)] border-[color:var(--color-accent-500)]/40',
   sky: 'text-[color:var(--color-sky-accent)] border-[color:var(--color-sky-accent)]/40',
   amber:
     'text-[color:var(--color-amber-accent)] border-[color:var(--color-amber-accent)]/40',

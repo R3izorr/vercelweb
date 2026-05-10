@@ -22,7 +22,7 @@ const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
 
 <BaseLayout {...rest} type="article">
   <div
-    class="mx-auto max-w-screen-xl px-4 py-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px]"
+    class="site-wrap py-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px]"
   >
     <article class="min-w-0">
       <Prose>
@@ -44,7 +44,7 @@ const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
                 >
                   <a
                     href={`#${h.slug}`}
-                    class="text-[color:var(--color-tx-2)] hover:text-[color:var(--color-accent-600)] dark:hover:text-[color:var(--color-accent-400)]"
+                    class="text-[color:var(--color-tx-2)] hover:text-[color:var(--color-accent-600)]"
                   >
                     {h.text}
                   </a>

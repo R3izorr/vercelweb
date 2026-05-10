@@ -6,31 +6,69 @@ const year = new Date().getFullYear();
 ---
 
 <footer
-  class="mt-16 border-t border-[color:var(--color-border)] py-8 text-xs text-[color:var(--color-tx-2)]"
+  class="mt-16 border-t border-[color:var(--color-border)] py-10 text-sm text-[color:var(--color-tx-2)] bg-[color:var(--color-bg-2)]"
 >
-  <div
-    class="mx-auto max-w-screen-lg px-4 flex flex-col sm:flex-row items-center justify-between gap-4"
-  >
-    <div class="flex flex-col sm:flex-row items-center gap-2">
-      <span>© {year} Chien Nguyen</span>
-      <span class="hidden sm:inline">·</span>
-      <span class="opacity-70">Built with Astro &amp; Tailwind</span>
+  <div class="site-wrap">
+    <div class="grid gap-8 sm:grid-cols-[1.4fr_1fr] lg:grid-cols-[1.5fr_repeat(2,1fr)]">
+      <div>
+        <a href="/" class="brand mb-4">
+          <span class="brand-mark">R3</span>
+          <span class="brand-text">
+            <span class="brand-name">r3izorr</span>
+            <span class="brand-sub">security notes</span>
+          </span>
+        </a>
+        <p class="max-w-sm text-xs leading-relaxed">
+          Computer science, CTF writeups, reverse engineering, pwn, and security projects.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-[11px] font-semibold uppercase text-[color:var(--color-tx-3)] mb-3">
+          Work
+        </h3>
+        <ul class="grid gap-2 text-xs">
+          <li><a class="hover:text-[color:var(--color-accent-600)]" href="/projects">Projects</a></li>
+          <li><a class="hover:text-[color:var(--color-accent-600)]" href="/writeups">Writeups</a></li>
+          <li>
+            <a
+              class="hover:text-[color:var(--color-accent-600)]"
+              href="https://github.com/R3izorr/CTF_writeup"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CTF repo
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-[11px] font-semibold uppercase text-[color:var(--color-tx-3)] mb-3">
+          Contact
+        </h3>
+        <div class="flex items-center gap-3">
+          {
+            links.map((l) => (
+              <a
+                href={l.url}
+                target={l.url.startsWith('http') ? '_blank' : undefined}
+                rel={l.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={l.label}
+                title={l.label}
+                class="hover:text-[color:var(--color-accent-600)]"
+              >
+                <Icon name={l.icon} class="w-4 h-4" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
     </div>
-    <div class="flex items-center gap-3">
-      {
-        links.map((l) => (
-          <a
-            href={l.url}
-            target={l.url.startsWith('http') ? '_blank' : undefined}
-            rel={l.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-            aria-label={l.label}
-            title={l.label}
-            class="hover:text-[color:var(--color-accent-600)] dark:hover:text-[color:var(--color-accent-400)]"
-          >
-            <Icon name={l.icon} class="w-4 h-4" />
-          </a>
-        ))
-      }
+
+    <div class="mt-8 pt-5 border-t border-[color:var(--color-border)] flex flex-col sm:flex-row justify-between gap-3 text-[11px] font-mono uppercase text-[color:var(--color-tx-3)]">
+      <span>© {year} Chien Nguyen</span>
+      <span>Built with Astro &amp; Tailwind</span>
     </div>
   </div>
 </footer>
