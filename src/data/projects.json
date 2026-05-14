@@ -68,7 +68,7 @@
     "title": "Connect Codex With Android via Termux",
     "summary": "Remote workflow guide for using Codex CLI from Android through Termux, Tailscale, SSH, and tmux while keeping code execution on an Ubuntu machine.",
     "category": "tool",
-    "featured": false,
+    "featured": true,
     "order": 26,
     "stack": [
       "Android",
