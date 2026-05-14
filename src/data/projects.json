@@ -63,6 +63,21 @@
     "status": "active"
   },
   {
+    "slug": "fact-checker-ai",
+    "repo": "R3izorr/fact_checker_AI",
+    "title": "fact_checker_AI",
+    "summary": "Early public stub for an AI-assisted fact-checking project. Listed here as a prototype idea and placeholder for a verification workflow I plan to expand.",
+    "category": "tool",
+    "featured": false,
+    "order": 28,
+    "stack": [],
+    "tags": ["ai", "fact-checking", "prototype"],
+    "links": {
+      "github": "https://github.com/R3izorr/fact_checker_AI"
+    },
+    "status": "prototype"
+  },
+  {
     "slug": "checksum-text-android-ndk",
     "repo": "R3izorr/Checksum-.text-in-androidNDK",
     "title": ".text Checksum for Android NDK",
