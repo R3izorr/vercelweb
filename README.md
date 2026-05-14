@@ -31,6 +31,7 @@ Selected projects from my GitHub profile, including:
 - `CTF_writeup` — my public CTF writeup collection
 - `sc2006-proj` — Hawker Opportunity Score Platform
 - `AgenticNetSec` — PCAP investigation and ransomware campaign analysis tool
+- `Connect-codex-with-android-via-termux` — Android-to-Ubuntu remote Codex CLI workflow guide
 - `fact_checker_AI` — early AI-assisted fact-checking prototype
 - `Checksum-.text-in-androidNDK` — Android NDK ELF `.text` integrity checker
 - `home-net-drift-monitor` — Python home network drift monitor

@@ -1,0 +1,59 @@
+---
+slug: connect-codex-with-android-via-termux
+repo: R3izorr/Connect-codex-with-android-via-termux
+title: Connect Codex With Android via Termux
+summary: Remote workflow guide for using Codex CLI from Android through Termux, Tailscale, SSH, and tmux while keeping code execution on an Ubuntu machine.
+category: tool
+featured: false
+order: 26
+stack:
+  - Android
+  - Termux
+  - Tailscale
+  - SSH
+  - tmux
+  - Codex CLI
+tags: ["android", "remote-dev", "termux", "tailscale", "ssh"]
+links:
+  github: https://github.com/R3izorr/Connect-codex-with-android-via-termux
+status: active
+---
+
+This project documents a clean remote workflow for driving Codex CLI from an
+Android phone without moving the actual development environment off the main
+Ubuntu machine.
+
+The split is simple:
+
+- **Android** runs Termux and Tailscale.
+- **Ubuntu** keeps the repo, runs Codex CLI, executes commands, edits files,
+  and handles Git.
+- **SSH** carries the shell session.
+- **tmux** keeps the session alive across disconnects.
+
+## Why it exists
+
+The point of the setup is convenience without turning the phone into the build
+box. Android acts as the keyboard and screen, while Ubuntu stays the machine
+that owns the project, tools, and credentials.
+
+That gives a practical workflow:
+
+- open Termux on Android
+- connect over Tailscale
+- SSH into Ubuntu
+- attach to a persistent `tmux` session
+- continue the same Codex CLI session from anywhere
+
+## What the guide covers
+
+The repository focuses on setup and operating notes:
+
+- first-time Codex login on Ubuntu
+- avoiding accidental API billing by leaving `OPENAI_API_KEY` unset unless
+  needed
+- keeping secrets and auth files out of Git
+- browser-friendly documentation alongside the Markdown guide
+
+It is less about building new software and more about making an existing
+coding workflow portable and durable.

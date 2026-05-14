@@ -63,6 +63,28 @@
     "status": "active"
   },
   {
+    "slug": "connect-codex-with-android-via-termux",
+    "repo": "R3izorr/Connect-codex-with-android-via-termux",
+    "title": "Connect Codex With Android via Termux",
+    "summary": "Remote workflow guide for using Codex CLI from Android through Termux, Tailscale, SSH, and tmux while keeping code execution on an Ubuntu machine.",
+    "category": "tool",
+    "featured": false,
+    "order": 26,
+    "stack": [
+      "Android",
+      "Termux",
+      "Tailscale",
+      "SSH",
+      "tmux",
+      "Codex CLI"
+    ],
+    "tags": ["android", "remote-dev", "termux", "tailscale", "ssh"],
+    "links": {
+      "github": "https://github.com/R3izorr/Connect-codex-with-android-via-termux"
+    },
+    "status": "active"
+  },
+  {
     "slug": "fact-checker-ai",
     "repo": "R3izorr/fact_checker_AI",
     "title": "fact_checker_AI",
@@ -127,7 +149,7 @@
     "repo": "R3izorr/blog",
     "title": "Personal Blog (MDX)",
     "summary": "A minimal MDX blog playground — used as a scratchpad for longer-form writing, separate from the CTF writeups.",
-    "category": "tooling",
+    "category": "tool",
     "featured": false,
     "order": 70,
     "stack": ["Next.js", "TypeScript", "MDX"],
